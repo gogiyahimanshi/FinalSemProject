@@ -1,0 +1,3 @@
+- update app code to current spring-boot
+- fix warnings/logs
+- smaller docker image
