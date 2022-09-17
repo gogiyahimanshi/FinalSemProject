@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "my_first_task" {
     }
   ]
   DEFINITION
-  requires_compatibilities = ["FARGATE"] # Stating that we are using ECS Fargate
+  requires_compatibilities = ["EC2"] # Stating that we are using ECS Fargate
   network_mode             = "awsvpc"    # Using awsvpc as our network mode as this is required for Fargate
   memory                   = 512         # Specifying the memory our container requires
   cpu                      = 256         # Specifying the CPU our container requires
@@ -123,7 +123,7 @@ resource "aws_ecs_service" "my_first_service" {
   name            = "my-first-service"                             # Naming our first service
   cluster         = "${aws_ecs_cluster.my_cluster.id}"             # Referencing our created Cluster
   task_definition = "${aws_ecs_task_definition.my_first_task.arn}" # Referencing the task our service will spin up
-  launch_type     = "EC2"
+  launch_type     = ["EC2"]
   desired_count   = 1 # Setting the number of containers to 3
 
   load_balancer {
