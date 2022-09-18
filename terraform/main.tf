@@ -59,7 +59,11 @@ resource "aws_default_vpc" "default_vpc" {
 ###########################################################
 resource "aws_instance" "ec2_instance" {
   ami                    = "ami-05fa00d4c63e32376"
-  subnet_id              =  ["subnet-095cb48bf1a4b8cb4", "subnet-05b6e0707d604bf50" , "subnet-06ef050e6cdffdd76"] #CHANGE THIS
+  subnets = [ # Referencing the default subnets
+    "${aws_default_subnet.default_subnet_a.id}",
+    "${aws_default_subnet.default_subnet_b.id}",
+    "${aws_default_subnet.default_subnet_c.id}"
+  ]
   instance_type          = "t2.micro"
  # iam_instance_profile   = "ecsInstanceRole" #CHANGE THIS
   vpc_security_group_ids = ["sg-04510b8c7f243ac61" , "sg-0dd2875de3df77949"] #CHANGE THIS
@@ -67,19 +71,15 @@ resource "aws_instance" "ec2_instance" {
   ebs_optimized          = "false"
   source_dest_check      = "false"
   user_data              = "${data.template_file.user_data.rendered}"
-  root_block_device = {
-    volume_type           = "gp2"
-    volume_size           = "30"
-    delete_on_termination = "true"
-  }
-
-  tags {
+  
+  tags = {
     Name                   = "openapi-ecs-ec2_instance"
 }
-
+/*
   lifecycle {
     ignore_changes         = ["ami", "user_data", "subnet_id", "key_name", "ebs_optimized", "private_ip"]
   }
+  */
 }
 
 data "template_file" "user_data" {
