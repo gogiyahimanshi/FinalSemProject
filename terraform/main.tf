@@ -59,7 +59,7 @@ resource "aws_default_vpc" "default_vpc" {
 ###########################################################
 resource "aws_instance" "ec2_instance" {
   ami                    = "ami-05fa00d4c63e32376"
-  subnet_id              =  ["subnet-095cb48bf1a4b8cb4", "subnet-05b6e0707d604bf50" , "subnet-06ef050e6cdffdd76" #CHANGE THIS
+  subnet_id              =  ["subnet-095cb48bf1a4b8cb4", "subnet-05b6e0707d604bf50" , "subnet-06ef050e6cdffdd76"] #CHANGE THIS
   instance_type          = "t2.micro"
  # iam_instance_profile   = "ecsInstanceRole" #CHANGE THIS
   vpc_security_group_ids = ["sg-04510b8c7f243ac61" , "sg-0dd2875de3df77949"] #CHANGE THIS
