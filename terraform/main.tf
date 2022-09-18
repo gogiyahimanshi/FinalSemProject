@@ -59,7 +59,7 @@ resource "aws_default_vpc" "default_vpc" {
 ###########################################################
 resource "aws_instance" "ec2_instance" {
   ami                    = "ami-05fa00d4c63e32376"
-  subnets = [ # Referencing the default subnets
+  subnet_id = [ # Referencing the default subnets
     "${aws_default_subnet.default_subnet_a.id}",
     "${aws_default_subnet.default_subnet_b.id}",
     "${aws_default_subnet.default_subnet_c.id}"
